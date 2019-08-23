@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <!--Appenders-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d %5p [%c] %m%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="console-infolog" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d %5p %m%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!--
+        logger.level
+            trace : 모든 로그 출력
+            debug : 개발시 디버그 용도로 사용
+            info : 상태 변경 등과 같은 정보성 메시지
+            warn : 프로그램의 실행에는 문제 없지만 추후 시스템 에러의 원인이 될 수 있다는 경고
+            error : 요청을 처리하던 중 문제가 발생한 것을 의미
+    -->
+    <!-- logger를 생성하여 저장? -->
+    <!-- <logger name="user" level="DEBUG" appender-ref="console"/> -->
+    <!-- 위에꺼가 안되서 그냥 내가 강제로 집어넣음 망할 -->
+    <!-- 아 첫자리를 넣으면 되는거였구나? -->
+    <logger name="com.manager" level="DEBUG" appender-ref="console"/>
+    <!-- <logger name="com.board.controller.BoardController" level="DEBUG" appender-ref="console"/> -->
+    <!-- <logger name="com.board.interceptor.LoggerInterceptor" level="DEBUG" appender-ref="console"/> -->
+    <!-- <logger name="com.board.aop.LoggerAspect" level="DEBUG" appender-ref="console"/> -->
+    <!-- <logger name="com.board.aop.TransactionAspect" level="DEBUG" appender-ref="console"/> -->
+    <logger name="jdbc.sqlonly" level="INFO" appender-ref="console-infolog"/>
+    <logger name="jdbc.resultsettable" level="INFO" appender-ref="console-infolog"/>
+    
+    <!--root logger-->
+    <!-- 기본적인 로그들을 보이지 않게 하려면 off를 하면 됨 -->
+    <!-- <root level="off"> -->
+    <root level="error">
+        <appender-ref ref="console"/>
+    </root>
+</configuration>

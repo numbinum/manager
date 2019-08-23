@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Controller
 public class ManagerController{
     @Autowired
@@ -25,7 +28,11 @@ public class ManagerController{
         return mv;
     }
 
-//    @RequestMapping(value = "/user/write", method = RequestMethod.GET)
-//    public String openUserWrite() throws Exception{
-//    }
+   @RequestMapping(value = "/user/write", method = RequestMethod.POST)
+   public String openUserWrite(UserDto userDto) throws Exception{
+       log.info("...............................................???????????????????????");
+       userService.insertUser(userDto);
+       
+       return "redirect:/user";
+   }
 }

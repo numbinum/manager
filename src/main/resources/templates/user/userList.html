@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="utf-8">
+<html lang="utf-8" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -73,31 +73,24 @@
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                 <h4 class="modal-title" id="myModalLabel"></h4> </div>
                                             <div class="modal-body">
-                                                <from class="form-horizontal form-material">
+                                                <from class="form-horizontal form-material" id="user_insert" action="" method="post">
                                                     <div class="form-group">
                                                         <div class="col-md-12 m-b-20">
-                                                            <input type="text" class="form-control" placeholder="Type name"> </div>
+                                                            <input type="text" class="form-control" placeholder="user id" id="userId" name="userId"> </div>
                                                         <div class="col-md-12 m-b-20">
-                                                            <input type="text" class="form-control" placeholder="Email"> </div>
-                                                        <div class="col-md-12 m-b-20">
-                                                            <input type="text" class="form-control" placeholder="Phone"> </div>
-                                                        <div class="col-md-12 m-b-20">
-                                                            <input type="text" class="form-control" placeholder="Designation"> </div>
-                                                        <div class="col-md-12 m-b-20">
-                                                            <input type="text" class="form-control" placeholder="Age"> </div>
-                                                        <div class="col-md-12 m-b-20">
-                                                            <input type="text" class="form-control" placeholder="Date of joining"> </div>
-                                                        <div class="col-md-12 m-b-20">
-                                                            <input type="text" class="form-control" placeholder="Salary"> </div>
+                                                            <input type="text" class="form-control" placeholder="pass" id="pass" name="pass"> </div>
+                                                    <!--
                                                         <div class="col-md-12 m-b-20">
                                                             <div class="fileupload btn btn-danger btn-rounded waves-effect waves-light"><span><i class="ion-upload m-r-5"></i>Upload Contact Image</span>
                                                                 <input type="file" class="upload"> </div>
                                                         </div>
+                                                    -->
                                                     </div>
+			                                        <input type="hidden" id="method" name="_method">
                                                 </from>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Save</button>
+                                                <button type="button" id="write" class="btn btn-info waves-effect" data-dismiss="modal">Save</button>
                                                 <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                                             </div>
                                         </div>
@@ -177,6 +170,33 @@
     <!-- Style switcher -->
     <!-- ============================================================== -->
     <script src="assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+
+    <!--  -->
+
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+			$("#write").on("click", function(){
+				/* 여기 */
+                $("#method").val("post");
+                console.log("fuck....");
+				
+                var user_insert = $("#user_insert")[0];
+                console.log("fuck....11");
+                user_insert.action = "/user/write";
+                console.log("fuck....12");
+				user_insert.submit();
+                console.log("fuck....13");
+			});
+			
+
+		});
+
+	</script>
+
+    <!--  -->
+
 </body>
 
 </html>
