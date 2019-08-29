@@ -7,6 +7,7 @@ import com.manager.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,9 +23,15 @@ public class ManagerController{
     @RequestMapping(value="/user", method=RequestMethod.GET)
     public ModelAndView openUserList() throws Exception{
         ModelAndView mv = new ModelAndView("/user/userList.html");
+        // ModelAndView mv = new ModelAndView("/user/testInsertUser.html");
 
         List<UserDto> users = userService.selectUserList();
         mv.addObject("users", users);
+
+        for(UserDto user : users) {
+            log.info( user.getUserId() + "  " + user.getPass() );
+        }
+
         return mv;
     }
 
@@ -35,4 +42,11 @@ public class ManagerController{
        
        return "redirect:/user";
    }
+
+    // @PathVariable 은 메서드의 파라미터가 URI의 변수로 사용되는 것을 의미
+    @RequestMapping(value="/user/{userIdx}", method=RequestMethod.DELETE)
+    public String deleteBoard(@PathVariable("userIdx") int userIdx) throws Exception{
+        userService.deleteUser(userIdx);
+        return "redirect:/user";
+    }
 }

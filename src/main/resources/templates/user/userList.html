@@ -67,35 +67,36 @@
                                 <button type="button" class="btn btn-info btn-rounded m-t-10 float-right" data-toggle="modal" data-target="#add-contact">Add New Contact</button>
                                 <!-- Add Contact Popup Model -->        
                                 <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                <h4 class="modal-title" id="myModalLabel"></h4> </div>
-                                            <div class="modal-body">
-                                                <from class="form-horizontal form-material" id="user_insert" action="" method="post">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12 m-b-20">
-                                                            <input type="text" class="form-control" placeholder="user id" id="userId" name="userId"> </div>
-                                                        <div class="col-md-12 m-b-20">
-                                                            <input type="text" class="form-control" placeholder="pass" id="pass" name="pass"> </div>
-                                                    <!--
-                                                        <div class="col-md-12 m-b-20">
-                                                            <div class="fileupload btn btn-danger btn-rounded waves-effect waves-light"><span><i class="ion-upload m-r-5"></i>Upload Contact Image</span>
-                                                                <input type="file" class="upload"> </div>
+                                    <form class="form-horizontal form-material" id="user_insert" action="" method="post">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    <h4 class="modal-title" id="myModalLabel"></h4> </div>
+                                                <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <div class="col-md-12 m-b-20">
+                                                                <input type="text" class="form-control" placeholder="user id" id="userId" name="userId"> </div>
+                                                            <div class="col-md-12 m-b-20">
+                                                                <input type="text" class="form-control" placeholder="pass" id="pass" name="pass"> </div>
+                                                        <!--
+                                                            <div class="col-md-12 m-b-20">
+                                                                <div class="fileupload btn btn-danger btn-rounded waves-effect waves-light"><span><i class="ion-upload m-r-5"></i>Upload Contact Image</span>
+                                                                    <input type="file" class="upload"> </div>
+                                                            </div>
+                                                        -->
                                                         </div>
-                                                    -->
-                                                    </div>
-			                                        <input type="hidden" id="method" name="_method">
-                                                </from>
+			                                            <input type="hidden" id="method" name="_method">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" id="write" class="btn btn-info waves-effect" data-dismiss="modal">Save</button>
+                                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                                                </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" id="write" class="btn btn-info waves-effect" data-dismiss="modal">Save</button>
-                                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
-                                            </div>
-                                        </div>
                                         <!-- /.modal-content -->
-                                    </div>
+                                        </div>
+
+                                    </form>
                                     <!-- /.modal-dialog -->
                                 </div>
                                 <div class="table-responsive">
@@ -106,16 +107,20 @@
                                                 <th>userId</th>
                                                 <th>pass</th>
                                                 <th>createDatetime</th>
+                                                <th>Del</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr th:if="${#lists.size(users)} > 0" th:each="user : ${users}">
                                                 <td th:text="${user.idx}"></td>
                                                 <td>
-                                                    <a href="javascript:void(0)" th:text="${user.userId}"><img src="assets/images/users/4.jpg" alt="user" width="40" class="img-circle" /> </a>
+                                                    <a href="javascript:void(0)" th:text="${user.userId}"></a>
                                                 </td>
-                                                <td th:text="${user.pass}"></td>
+                                                <td th:text="${user.pass}"/>
                                                 <td><span class="label label-danger" th:text="${user.createdDatetime}"></span> </td>
+                                                <td>
+                                                    <button type="button" id="delete" class="close" aria-hidden="true">X</button>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -180,14 +185,27 @@
 			$("#write").on("click", function(){
 				/* 여기 */
                 $("#method").val("post");
-                console.log("fuck....");
 				
                 var user_insert = $("#user_insert")[0];
-                console.log("fuck....11");
                 user_insert.action = "/user/write";
-                console.log("fuck....12");
 				user_insert.submit();
-                console.log("fuck....13");
+                console.log("insert User");
+			});
+
+// var client = new HttpClient();
+// client.get('http://some/thing?with=arguments', function(response) {
+//     // do something with response
+// });
+
+			$("#delete").on("click", function(){
+				/* 여기 */
+                console.log("delete gogo !");
+				$("#method").val("delete");
+				
+				var frm = $("#frm")[0];
+				frm.action = "/user/"+boardIdx;
+				frm.submit();
+                console.log("delete User");
 			});
 			
 
